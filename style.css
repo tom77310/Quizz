@@ -1,0 +1,52 @@
+/* Style par defaut de toute la page */
+    body{
+        background-color: rgb(217, 217, 217);
+    }
+/* Fin style par defauts */
+
+/* titre de la page */
+    .titre_menu {
+        text-align: center;
+        font-size: 17px;
+        margin-top: 7%;
+    }
+/* fin titre de la page */
+
+/* sous titre de la page */
+    .sous_titre {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 2%;
+        text-decoration: underline;
+    }
+/* fin sous-titre de la page */
+
+/* thème des quizz */
+    .content{
+        text-align: center;
+        padding: 0.5%;
+    }
+    /* premier thème */
+        .permis{
+            color: white;
+            padding: 2.5%;
+            margin-bottom: 1%;
+        }
+    /* fin premier thème */
+/* fin thème quizz */
+
+/* lien premier thème */
+    .theme_txt_permis{
+        text-decoration: none;
+        color: white;
+        background-color: orange;
+        padding: 2%;
+        border-radius: 5%;
+        font-size: 16px;
+    }
+    .theme_txt_permis:hover{
+        font-size: 16px;
+        background-color: rgb(190, 133, 26);
+    }
+/* fin lien premier thème */
+
