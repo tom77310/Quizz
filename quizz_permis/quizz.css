@@ -4,3 +4,122 @@
         background-color: rgb(251, 214, 145);
     }
 /* fin style par défaut de la page */
+
+/* retour à l'acceuil */
+    /* lien de retour */
+        .return_menu {
+            text-decoration: none;
+        }
+    /* fin lien de retour */
+
+    /* image de retour */
+        .img_fleche {
+            width: auto;
+            height: 33px;
+        }
+        
+        .img_fleche:hover {
+            width: auto;
+            height: 37px;
+        }
+    /* fin image de retour */
+/* fin retour à l'acceuil */
+
+/* contenu de la page */
+    .main_content {
+        text-align: center;
+        animation-name: slide;
+        animation-duration: 1000ms;
+    }
+    /* titre de la page */
+        .titre {
+            font-size: 33px;
+            margin-top: 5%;
+        }
+    /* fin titre de la page */
+    /* sous titre de la page */
+        .sous_titre {
+        font-size: 26px;
+        text-decoration: underline;
+        }
+    /* fin sous titre */
+    /* Boutton "commencer" */
+        .start {
+            margin-top: 3.5%;
+            padding: 2.5%;
+            font-size: 19px;
+            background-color: orange;
+            border-radius: 5%;
+            cursor: pointer;
+            color:white;
+        }
+
+        .start:hover {
+            background-color: rgb(205, 138, 14);
+        }
+    /* Fin boutton "commencer" */
+    /* header */
+        .header_screen {
+            display: block;
+        }
+    /* fin header */
+    /* question */
+        .questions_screen {
+            display: none;
+        }
+    /* fin question */
+    /* titre questions */
+        .title_questions {
+            font-size: 25px;
+            text-decoration: underline;
+        }
+    /* fin titre questions */
+    /* résultat */
+    .result_screen {
+        display: none;
+        font-size: 22px;
+    }
+    /* fin résultat */
+/* fin contenu de la page */
+
+/* questions */
+.list_questions {
+    list-style: none;
+    font-size: 24px;
+}
+.avancement_question {
+    font-size: 20px;
+    margin-top: 2%;
+}
+/* fin des questions */
+
+/* réponses */
+    .answers {
+        background-color: orange;
+        color:white;
+        text-shadow: 4px 0.5px 3px rgba(0,0,0,1);
+        padding: 1%;
+        margin-bottom: 5%;
+        cursor: pointer;
+    }
+
+    .answers:hover {
+        background-color: orange;
+    }
+    /*  */
+    .answersCorrect {
+        background-color: rgb(13, 188, 13);
+    }
+
+    .answersCorrect:hover {
+        background-color: rgb(13, 188, 13);
+    }
+
+    .answersWrong {
+        background-color: rgb(191, 13, 13);
+    }
+
+    .answersWrong:hover {
+        background-color: rgb(191, 13, 13);
+    }
+/* fin des réponses */
