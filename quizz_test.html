@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz avec Explications</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header_screen">
+        <h1>Bienvenue au Quiz</h1>
+        <button id="btn_start">Commencer le quiz</button>
+    </div>
+
+    <div id="questions_screen" style="display:none;">
+        <!-- Les questions vont apparaître ici -->
+    </div>
+
+    <div id="result_screen" style="display:none;">
+        <h2>Résultat</h2>
+        <p>Vous avez répondu correctement à <span id="nbrCorrects"></span> questions.</p>
+    </div>
+
+    <div id="explanation" style="display:none;">
+        <!-- Les explications apparaîtront ici après validation -->
+    </div>
+
+    <script src="script_test.js"></script>
+</body>
+</html>
