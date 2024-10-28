@@ -16,6 +16,8 @@ function Quiz(){
 
     // Fonction servant à passer à la question suivante s'il y en a une, sinon afficher le résultat
     this.displayCurrentQuestion = function() {
+        // Cacher l'explication de la question précédente
+        explanationElement.style.display = "none";
         if (this.indexCurrentQuestion < this.questions.length) {
             this.questions[this.indexCurrentQuestion].getElement(
                 this.indexCurrentQuestion + 1, this.questions.length
@@ -29,7 +31,7 @@ function Quiz(){
     };
 }
 
-// Fonction Question permettant de créer les questions avec le titre, les réponses et la réponse correcte
+// Fonction Question permettant de créer les questions avec le titre, les réponses et la réponse correcte et l'explication
 function Question(title, answers, correctAnswers, explanation) {
     this.title = title;
     this.answers = answers;
@@ -41,10 +43,9 @@ function Question(title, answers, correctAnswers, explanation) {
         questions_screen.innerHTML = ''; // Vider la question précédente
         
         let questionTitle = document.createElement("h3");
-        questionTitle.classList.add("title_questions");
         questionTitle.textContent = this.title;
-
         questions_screen.append(questionTitle);
+        // questionTitle.classList.add("title_questions");
 
         let questionAnswer = document.createElement("ul");
         questionAnswer.classList.add("list_questions");
@@ -56,9 +57,10 @@ function Question(title, answers, correctAnswers, explanation) {
             answerElement.textContent = answer;
             answerElement.id = index + 1; // L'index commence à 1 pour correspondre aux indices corrects
             answerElement.addEventListener("click", this.toggleAnswerSelection);
-
-            questionAnswer.append(answerElement);
+                        questionAnswer.append(answerElement);
         });
+
+        questions_screen.append(questionAnswer);
 
         // Ajout du bouton de validation
         let validateButton = document.createElement("button");
@@ -72,16 +74,17 @@ function Question(title, answers, correctAnswers, explanation) {
         let questionNumber = document.createElement("h4");
         questionNumber.classList.add("avancement_question");
         questionNumber.textContent = "Questions : " + indexQuestion + "/" + nbrOfQuestions;
-
-        questions_screen.append(questionNumber);
-        questions_screen.append(questionAnswer);
+        
         questions_screen.append(validateButton);
+
+        // questions_screen.append(questionNumber);
     }
 
     // Fonction pour sélectionner ou désélectionner une réponse (ajout d'une classe pour les réponses sélectionnées)
     this.toggleAnswerSelection = function() {
         this.classList.toggle("selectedAnswer");
     };
+
 
     // Vérification de la réponse une fois que l'utilisateur a validé ses choix
     this.checkAnswer = () => {
@@ -98,12 +101,15 @@ function Question(title, answers, correctAnswers, explanation) {
     
         // Affichage des réponses correctes et fausses
         selectedAnswers.forEach(selectedAnswer => {
+            let answerElement = document.getElementById(selectedAnswer);
             if (this.correctAnswers.includes(selectedAnswer)) {
-                let correctAnswerElement = document.getElementById(selectedAnswer);
-                correctAnswerElement.classList.add("answersCorrect"); // Affiche en vert si la réponse est correcte
+                answerElement.classList.add("answersCorrect"); // Affiche en vert si la réponse est correcte
+                // let correctAnswerElement = document.getElementById(selectedAnswer);
+                // correctAnswerElement.classList.add("answersCorrect"); // Affiche en vert si la réponse est correcte
             } else {
-                let wrongAnswerElement = document.getElementById(selectedAnswer);
-                wrongAnswerElement.classList.add("answersWrong"); // Affiche en rouge si la réponse est fausse
+                // let wrongAnswerElement = document.getElementById(selectedAnswer);
+                answerElement.classList.add("answersWrong"); // Affiche en rouge si la réponse est fausse
+                // wrongAnswerElement.classList.add("answersWrong"); // Affiche en rouge si la réponse est fausse
             }
         });
     
@@ -112,58 +118,20 @@ function Question(title, answers, correctAnswers, explanation) {
             let correctAnswerElement = document.getElementById(correctAnswer);
             correctAnswerElement.classList.add("answersCorrect");
         });
+
+        // Afficher l'explication
+        explanationElement.textContent = this.explanation;
+        explanationElement.style.display = "block";
     
         // Passer à la question suivante après un court délai
         setTimeout(function() {
             questions_screen.textContent = ''; // Réinitialise l'écran pour la question suivante
             quiz.indexCurrentQuestion++;
             quiz.displayCurrentQuestion();
-        }, 1500); // Petit délai pour que l'utilisateur voie la correction avant de passer à la question suivante
+        }, 4000); // Petit délai pour que l'utilisateur voie la correction avant de passer à la question suivante
     };
 }    
 
-this.checkAnswer = () => {
-    let selectedAnswers = Array.from(document.querySelectorAll('.selectedAnswer')).map(answer => parseInt(answer.id));
-
-    // Vérification des réponses sélectionnées
-    const allCorrectSelected = this.correctAnswers.every(answer => selectedAnswers.includes(answer));
-    const noWrongSelected = selectedAnswers.every(answer => this.correctAnswers.includes(answer));
-
-    // Si toutes les bonnes réponses sont sélectionnées et aucune mauvaise réponse
-    if (allCorrectSelected && noWrongSelected) {
-        quiz.nbrCorrects++; // Incrémente le score si la sélection est parfaite
-    }
-
-    // Affichage des réponses correctes et fausses
-    selectedAnswers.forEach(selectedAnswer => {
-        if (this.correctAnswers.includes(selectedAnswer)) {
-            let correctAnswerElement = document.getElementById(selectedAnswer);
-            correctAnswerElement.classList.add("answersCorrect"); // Affiche en vert si la réponse est correcte
-        } else {
-            let wrongAnswerElement = document.getElementById(selectedAnswer);
-            wrongAnswerElement.classList.add("answersWrong"); // Affiche en rouge si la réponse est fausse
-        }
-    });
-
-    // Afficher toutes les bonnes réponses (même celles non sélectionnées)
-    this.correctAnswers.forEach(correctAnswer => {
-        let correctAnswerElement = document.getElementById(correctAnswer);
-        correctAnswerElement.classList.add("answersCorrect");
-    });
-
-    // Afficher l'explication après validation
-    let explanationElement = document.getElementById('explanation');
-    explanationElement.textContent = this.explanation;
-    explanationElement.style.display = "block"; // Afficher l'explication
-
-    // Passer à la question suivante après un délai
-    setTimeout(function() {
-        questions_screen.textContent = ''; // Réinitialiser l'écran pour la question suivante
-        explanationElement.style.display = "none"; // Masquer l'explication avant la prochaine question
-        quiz.indexCurrentQuestion++;
-        quiz.displayCurrentQuestion();
-    }, 4000); // Petit délai pour que l'utilisateur voie la correction et l'explication avant de passer à la question suivante
-};
 
 // Initialisation du quiz
 let quiz = new Quiz();
@@ -171,7 +139,7 @@ let quiz = new Quiz();
 let question1 = new Question("Où se trouve la commande de réglage des feux ?", ["À gauche du volant", "À droite du volant", "Autre"], [1], "test");
 quiz.addQuestion(question1);
 
-let question2 = new Question("Pourquoi doit-on régler les feux ?", ["Pour améliorer la vision de nuit", "Pour éviter l'éblouissement des autres conducteurs", "Pour avoir un bon style"], [1, 2]);
+let question2 = new Question("Pourquoi doit-on régler les feux ?", ["Pour améliorer la vision de nuit", "Pour éviter l'éblouissement des autres conducteurs", "Pour avoir un bon style"], [1, 2], "test 2");
 quiz.addQuestion(question2);
 
 let question3 = new Question("Comment et pourquoi protéger une zone de danger en cas d'accident de la route ? ", ["En délimitant clairement et largement la zone", "En attendant les secours ", "Pour éviter un sur-accident", "Pour protéger les victimes"], [1,3,4]);
